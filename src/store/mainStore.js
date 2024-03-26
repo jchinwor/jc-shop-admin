@@ -328,7 +328,7 @@ const getOrders = async() =>{
             
             }
 
-        let result = await axios.get(`/api/orders/allorders`,config)
+        let result = await axios.get(`${serverApi.value}/api/orders/allorders`,config)
         const ordersData = result.data.orders
         
             orders.value = ordersData
