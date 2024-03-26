@@ -12,7 +12,7 @@ const toast = useToast();
 
 const store = adminMainStore();
 const { products, token, categories, serverApi } = storeToRefs(store)
-const { getProducts, updateProduct, deleteProductStore, deleteSelectedProductStore } = store
+const { getProducts, getCategory, updateProduct, deleteProductStore, deleteSelectedProductStore } = store
 
 
 // const products = ref(null);
@@ -44,7 +44,7 @@ onBeforeMount(() => {
 });
 onMounted(() => {
 
-   
+   getCategory()
 
    setTimeout(() => {
 
