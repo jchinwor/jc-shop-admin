@@ -14,6 +14,8 @@ export const adminMainStore = defineStore('adminStore', () => {
     const orders = ref([])
     const Customer_order = ref([])
     const Customer_shippingAddress = ref([])
+    const serverApi = ref(null)
+    serverApi.value = import.meta.env.VITE_SERVICE_URL
 
 const isLoggedIn = () =>{
     
@@ -56,7 +58,7 @@ const authAdmin = async(email,password) =>{
    
        try{
 
-            let result = await axios.post('/api/users/login',{
+            let result = await axios.post(`${serverApi.value}/api/users/login`,{
                 email:email,
                 password:password
             })
@@ -90,7 +92,7 @@ const getProducts = async() =>{
 
     try{
 
-        let result = await axios.get('/api/products/latest')
+        let result = await axios.get(`${serverApi.value}/api/products/latest`)
         const productsData = result.data
 
         products.value =  productsData
@@ -118,7 +120,7 @@ const deleteProductStore = async(productid) =>{
             
             }
 
-            let result = await axios.post('/api/products/removeproduct',productdata,config)
+            let result = await axios.post(`${serverApi.value}/api/products/removeproduct`,productdata,config)
 
            
             
@@ -146,7 +148,7 @@ const updateProduct = async(productid,product) =>{
             
             }
 
-            let result = await axios.put('/api/products/'+productid,product,config)
+            let result = await axios.put(`${serverApi.value}/api/products/`+productid,product,config)
 
             products.value = result.data.product
             
@@ -180,7 +182,7 @@ const deleteSelectedProductStore = async(selectedproduct) =>{
             
             }
 
-            let result = await axios.post('/api/products/deleteselectedproduct',productdata,config)
+            let result = await axios.post(`${serverApi.value}/api/products/deleteselectedproduct`,productdata,config)
 
            
             
@@ -202,7 +204,7 @@ const getCategory = async() =>{
 
     try{
 
-        let result = await axios.get('/api/categories/')
+        let result = await axios.get(`${serverApi.value}/api/categories/`)
         const categoriesData = result.data.categories
         
         if(result.data.success){
@@ -231,7 +233,7 @@ const updateCategory = async(categoryid,category) =>{
             
             }
 
-            let result = await axios.put('/api/categories/'+categoryid,category,config)
+            let result = await axios.put(`${serverApi.value}/api/categories/`+categoryid,category,config)
 
             categories.value = result.data.category
             
@@ -263,7 +265,7 @@ const deleteCategoryStore = async(categoryid) =>{
             
             }
 
-            let result = await axios.post('/api/categories/deletecategory',categorydata,config)
+            let result = await axios.post(`${serverApi.value}/api/categories/deletecategory`,categorydata,config)
 
            
             
@@ -295,7 +297,7 @@ const deleteSelectedCategoryStore = async(selectedcategory) =>{
             
             }
 
-            let result = await axios.post('/api/categories/deleteselectedcategory',categorydata,config)
+            let result = await axios.post(`${serverApi.value}/api/categories/deleteselectedcategory`,categorydata,config)
 
            
             
@@ -326,7 +328,7 @@ const getOrders = async() =>{
             
             }
 
-        let result = await axios.get('/api/orders/allorders',config)
+        let result = await axios.get(`/api/orders/allorders`,config)
         const ordersData = result.data.orders
         
         if(result.data.success){ 
@@ -355,7 +357,7 @@ const getCustomerOrder = async(token,orderid) =>{
 
       try{
 
-          const result = await axios.get(`/api/orders/${orderid}`,config);
+          const result = await axios.get(`${serverApi.value}/api/orders/${orderid}`,config);
     
           // const orderData = result.data
 
@@ -393,7 +395,7 @@ const DeliveredOrder = async(token,orderid) =>{
 
         if(orderid){
 
-          const result = await axios.put(`/api/orders/${orderid}/delivered`,{},config);
+          const result = await axios.put(`${serverApi.value}/api/orders/${orderid}/delivered`,{},config);
     
           const orderData = result.data 
     
@@ -421,7 +423,7 @@ const getUsers = async() =>{
   
         try{
   
-            const result = await axios.get('/api/users/',config);
+            const result = await axios.get(`${serverApi.value}/api/users/`,config);
       
             // const orderData = result.data
   
