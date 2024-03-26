@@ -11,7 +11,7 @@ import axios from 'axios'
 const toast = useToast();
 
 const store = adminMainStore();
-const { products, token, categories } = storeToRefs(store)
+const { products, token, categories, serverApi } = storeToRefs(store)
 const { getProducts, updateProduct, deleteProductStore, deleteSelectedProductStore } = store
 
 
@@ -110,7 +110,7 @@ const saveProduct = async() => {
             let formData = new FormData()
             formData.append('product', file.value)
 
-            const mediaStoreRoute = '/api/upload'
+            const mediaStoreRoute = `${serverApi.value}/api/upload`
             
 
             let result = await axios.post(mediaStoreRoute, formData)
@@ -204,8 +204,8 @@ const saveProduct = async() => {
             let formData = new FormData()
             formData.append('product', file.value)
 
-            const mediaStoreRoute = '/api/upload'
-            const addproductapi = '/api/products/addproduct'
+            const mediaStoreRoute = `${serverApi.value}/api/upload`
+            const addproductapi = `${serverApi.value}/api/products/addproduct`
 
             let result = await axios.post(mediaStoreRoute, formData)
 
