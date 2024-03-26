@@ -15,7 +15,7 @@ export const adminMainStore = defineStore('adminStore', () => {
     const Customer_order = ref([])
     const Customer_shippingAddress = ref([])
     const serverApi = ref(null)
-    serverApi.value = import.meta.env.VITE_SERVICE_URL
+    serverApi.value = await import.meta.env.VITE_SERVICE_URL
   
 const isLoggedIn = () =>{
     
