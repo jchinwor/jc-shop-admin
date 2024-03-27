@@ -10,7 +10,7 @@ import { useToast } from 'primevue/usetoast';
 const toast = useToast();
 
 const store = adminMainStore();
-const { token, categories } = storeToRefs(store)
+const { token, categories, serverApi  } = storeToRefs(store)
 const { getCategory, updateCategory, deleteCategoryStore, deleteSelectedCategoryStore } = store
 
 
@@ -95,8 +95,8 @@ const saveCategory = async() => {
             let formData = new FormData()
             formData.append('product', file.value)
 
-            const mediaStoreRoute = '/api/upload'
-            const updatecategoryapi = '/api/categories/addCategories'
+            const mediaStoreRoute = `${serverApi.value}/api/upload`
+            const updatecategoryapi = `${serverApi.value}/api/categories/addCategories`
 
             let result = await axios.post(mediaStoreRoute, formData)
 
@@ -186,8 +186,8 @@ const saveCategory = async() => {
             let formData = new FormData()
             formData.append('product', file.value)
 
-            const mediaStoreRoute = '/api/upload'
-            const addcategoryapi = '/api/categories/addCategories'
+            const mediaStoreRoute = `${serverApi.value}/api/upload`
+            const addcategoryapi = `${serverApi.value}/api/categories/addCategories`
 
             let result = await axios.post(mediaStoreRoute, formData)
 
@@ -250,22 +250,7 @@ const saveCategory = async() => {
 
 
     
-    // if (product.value.name && product.value.name.trim() && product.value.price) {
-    //     if (product.value.id) {
-    //         product.value.inventoryStatus = product.value.inventoryStatus.value ? product.value.inventoryStatus.value : product.value.inventoryStatus;
-    //         products.value[findIndexById(product.value.id)] = product.value;
-    //         toast.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-    //     } else {
-    //         product.value.id = createId();
-    //         product.value.code = createId();
-    //         product.value.image = 'product-placeholder.svg';
-    //         product.value.inventoryStatus = product.value.inventoryStatus ? product.value.inventoryStatus.value : 'INSTOCK';
-    //         products.value.push(product.value);
-    //         toast.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
-    //     }
-    //     categoryDialog.value = false;
-    //     product.value = {};
-    // }
+  
 };
 
 const editCategory = (editCategory) => {
