@@ -15,6 +15,8 @@ const { authAdmin, isLoggedIn } = store
 const router = useRouter()
 const toast = useToast();
 
+const loadingdata = ref(false)
+
 const { layoutConfig } = useLayout();
 const email = ref('');
 const password = ref('');
@@ -27,11 +29,15 @@ const Login = () => {
         toast.add({ severity: 'error', summary: 'All Fields are required', detail: '', life: 3000 });
     }else{
 
+        loadingdata.value = true
+
          authAdmin(email.value,password.value).then(result=>{
 
         if(result.data.success){
 
           if(adminData.value && adminData.value.isAdmin){
+
+             loadingdata.value = false
 
              //Search for redirect path
                                 let searchParams = new URLSearchParams(window.location.search);
@@ -93,6 +99,9 @@ const logoUrl = computed(() => {
                         <span class="text-600 font-medium">Admin Login</span>
                     </div> 
 
+                    
+                    <ProgressBar mode="indeterminate" style="height: 6px" class="mb-4" v-if="loadingdata"></ProgressBar>
+
                     <div>
                         <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
                         <InputText id="email1" type="email" placeholder="Email address" class="w-full md:w-30rem mb-5" style="padding: 1rem" v-model="email" />
@@ -107,7 +116,15 @@ const logoUrl = computed(() => {
                             </div>
                             <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Forgot password?</a>
                         </div>
-                        <Button label="Sign In" class="w-full p-3 text-xl" @click="Login"></Button>
+                        <div v-if="loadingdata">
+                            <Button label="Sign In" class="w-full p-3 text-xl"  disabled></Button>
+                        </div>
+                        <div v-else>
+                            <Button label="Sign In" class="w-full p-3 text-xl" @click="Login"></Button>
+                        </div>
+                        
+                        
+                       
                     </div>
                 </div>
             </div>
