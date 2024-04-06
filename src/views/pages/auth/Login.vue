@@ -62,7 +62,7 @@ const Login = () => {
 
 
           }else{
-
+              loadingdata.value = false
              toast.add({ severity: 'error', summary: 'User is not an Admin', detail: '', life: 3000 });
              
           }
@@ -70,7 +70,7 @@ const Login = () => {
 
 
         }else{
-
+             loadingdata.value = false
           toast.add({ severity: 'error', summary: 'Invalid login credentials!', detail: '', life: 3000 });
         }
   })
